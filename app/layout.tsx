@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Nunito, Nunito_Sans } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+
 import { Toaster } from 'sonner'
 import './globals.css'
 import { SmoothScroll } from '@/components/smooth-scroll'
@@ -33,7 +33,6 @@ export default function RootLayout({
         {children}
         <WhatsAppButton />
         <Toaster position="top-center" richColors />
-        <Analytics />
       </body>
     </html>
   )
