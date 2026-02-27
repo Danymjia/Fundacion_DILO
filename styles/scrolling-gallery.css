@@ -1,0 +1,72 @@
+
+/* Variabel global untuk kustomisasi - Overridden by inline styles in React */
+:root {
+  --total-items: 10;
+  --animation-duration: 30s;
+}
+
+/* Container utama untuk scrolling */
+.scorlling {
+  width: 100%;
+  max-width: 1536px;
+  position: relative;
+  height: 200px; /* Adjusted height to fit images better */
+  overflow: hidden;
+  margin: 0 auto;
+
+  /* Masking untuk memberikan efek fade di sisi kiri dan kanan */
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0));
+}
+
+.scorlling img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Animasi untuk menggeser elemen ke kiri */
+@keyframes scrollleft {
+  to {
+    left: -250px; /* Width of item */
+  }
+}
+
+/* Gaya dasar untuk setiap item */
+.item {
+  width: 250px;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 12px;
+  position: absolute;
+  overflow: hidden;
+
+  /* Posisi awal elemen di luar layar */
+  /* We place them at intervals. The formula in user's CSS seems to rely on complex delays. 
+     Wait, the user's CSS puts ALL items at `left: max(calc(250px * var(--total-items)), 100%);` initially?
+     No, that pushes them way off screen.
+     Let's look at the animation. `to { left: -200px }`.
+     And the animation loops.
+     
+     Actually, a common way to do this infinite scroll with absolute positioning and delays is:
+     Start all items off-screen right.
+     Animate them to off-screen left.
+     Delay each one so they appear in sequence.
+     
+     User's CSS:
+     left: max(calc(250px * var(--total-items)), 100%); 
+     This puts them far right.
+     Animation moves them to -200px? That's a huge distance if they start at 250px * 9 = 2250px.
+     Travel distance = Start - End = 2250 - (-200) = 2450px.
+     
+     Wait, if they all start at the same spot, and have different delays, they will enter the screen one by one.
+     Correct.
+  */
+  
+  left: max(calc(250px * var(--total-items)), 100%);
+  
+  animation-name: scrollleft;
+  animation-duration: var(--animation-duration);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
