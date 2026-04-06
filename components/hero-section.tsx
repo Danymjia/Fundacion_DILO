@@ -38,7 +38,7 @@ export function HeroSection() {
           <ScrollReveal className="relative w-full max-w-lg aspect-[4/5] lg:aspect-square xl:aspect-[4/5] z-10">
             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/assets/hero-therapy.png"
+                src="/assets/hero-therapy.webp"
                 alt="Terapia avanzada para el desarrollo"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

@@ -3,14 +3,13 @@
 import { motion } from "framer-motion"
 import { TextAnimate } from "@/components/ui/text-animate"
 import { useState } from "react"
-import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { toast } from "sonner"
-import { Send, Phone, Mail, MapPin } from "lucide-react"
+import { Send } from "lucide-react"
 
 export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -21,26 +20,27 @@ export function ContactSection() {
     message: "",
   })
 
-  // ... rest of the state functions ...
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
     try {
-      const supabase = createClient()
-      const { error } = await supabase.from("contact_messages").insert({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || null,
-        message: formData.message,
-      })
+      // Build the mailto link
+      const emailTo = "fundaciondilo@hotmail.com"
+      const subject = `Nuevo mensaje de contacto de ${formData.name}`
+      const body = `Nombre: ${formData.name}%0D%0A` +
+                   `Correo: ${formData.email}%0D%0A` +
+                   `Teléfono: ${formData.phone || "No proporcionado"}%0D%0A%0D%0A` +
+                   `Mensaje: ${formData.message}`
 
-      if (error) throw error
+      // Create a temporary link element and click it
+      const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${body}`
+      window.location.href = mailtoLink
 
-      toast.success("Mensaje enviado exitosamente. Nos pondremos en contacto contigo pronto.")
+      toast.success("Abriendo tu gestor de correo para enviar el mensaje.")
       setFormData({ name: "", email: "", phone: "", message: "" })
     } catch {
-      toast.error("Error al enviar el mensaje. Por favor, intentálo de nuevo.")
+      toast.error("Error al preparar el envío. Por favor, inténtalo de nuevo.")
     } finally {
       setIsSubmitting(false)
     }

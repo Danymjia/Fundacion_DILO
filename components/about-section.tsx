@@ -41,7 +41,7 @@ export function AboutSection() {
           >
             <div className="overflow-hidden rounded-3xl">
               <Image
-                src="/assets/about-team.png"
+                src="/assets/about-team.webp"
                 alt="Equipo de terapeutas de Fundación DILO"
                 width={560}
                 height={420}

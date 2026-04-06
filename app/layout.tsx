@@ -13,6 +13,9 @@ const _nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Fundacion DILO | Habla, Lenguaje y Comunicacion',
   description: 'Fundacion DILO - Servicios de terapia del habla, lenguaje y comunicacion para ninos, adolescentes y adultos. Estimulacion temprana, terapia de lenguaje, trastornos de pronunciacion y mas.',
+  icons: {
+    icon: '/assets/favicon.ico',
+  },
 }
 
 export const viewport: Viewport = {

@@ -1,17 +1,49 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { createClient } from "@/lib/supabase/client"
 import { ImageIcon } from "lucide-react"
 import { TextAnimate } from "@/components/ui/text-animate"
 import Masonry, { Item } from "@/components/ui/masonry"
 
-interface GalleryImage {
-  id: string
-  title: string
-  image_url: string
-  created_at: string
-}
+// Defined local images for the gallery
+// Users can add more images to public/assets/ gallery then update this list
+const GALLERY_IMAGES = [
+  {
+    id: "1",
+    title: "Terapia asistida",
+    image_url: "/assets/hero-therapy.webp",
+  },
+  {
+    id: "2",
+    title: "Estimulación temprana",
+    image_url: "/assets/estimulacion-temprana.webp",
+  },
+  {
+    id: "3",
+    title: "Nuestro equipo",
+    image_url: "/assets/about-team.webp",
+  },
+  {
+    id: "4",
+    title: "Sesión de terapia",
+    image_url: "/assets/gallery/therapy-1.webp",
+  },
+  {
+    id: "5",
+    title: "Sala de estimulación",
+    image_url: "/assets/gallery/stimulation.webp",
+  },
+  {
+    id: "6",
+    title: "Recepción",
+    image_url: "/assets/gallery/reception.webp",
+  },
+  {
+    id: "7",
+    title: "Parque exterior",
+    image_url: "/assets/gallery/outdoor.webp",
+  },
+]
 
 export function GallerySection() {
   const [items, setItems] = useState<Item[]>([])
@@ -20,38 +52,26 @@ export function GallerySection() {
   const [isMobile, setIsMobile] = useState(false)
 
   // Detect mobile to apply limits mainly for mobile or small screens
-  // Though limiting on all screens if there's too many is fine too
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
-  useEffect(() => {
-    async function fetchImages() {
-      const supabase = createClient()
-      const { data, error } = await supabase
-        .from("gallery_images")
-        .select("*")
-        .order("created_at", { ascending: false })
 
-      if (!error && data) {
-        // Map database images to Masonry Items format
-        // In a real scenario heights would hopefully be standardized or saved in DB
-        // For visual variety of Masonry, generating randomish heights based on index
-        const heightOptions = [400, 250, 600, 350, 500, 300, 450]
-        const formattedItems = data.map((img: GalleryImage, idx: number) => ({
-          id: img.id,
-          // Ensuring clean url from db, no grayscale appends
-          img: img.image_url,
-          url: img.image_url,
-          height: heightOptions[idx % heightOptions.length]
-        }))
-        setItems(formattedItems)
-      }
-      setLoading(false)
-    }
-    fetchImages()
+  useEffect(() => {
+    // Standard Masonry heights for variation
+    const heightOptions = [400, 250, 600, 350, 500, 300, 450]
+    
+    const formattedItems = GALLERY_IMAGES.map((img, idx) => ({
+      id: img.id,
+      img: img.image_url,
+      url: img.image_url,
+      height: heightOptions[idx % heightOptions.length]
+    }))
+    
+    setItems(formattedItems)
+    setLoading(false)
   }, [])
 
   return (

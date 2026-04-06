@@ -2,32 +2,31 @@
 
 import { motion } from "framer-motion"
 import { TextAnimate } from "@/components/ui/text-animate"
-import ScrollFloat from "@/components/ui/scroll-float"
 import Image from "next/image"
 
 const services = [
   {
     title: "Estimulación Temprana",
     description: "Estimulación Temprana es acompañamiento constante en el desarrollo de niños y adolescentes con necesidades o avanzadas para el desarrollo.",
-    image: "/assets/estimulacion-temprana.png",
+    image: "/assets/estimulacion-temprana.webp",
     reverse: false,
   },
   {
     title: "Terapia de Lenguaje",
     description: "Acompañamos terapias con un enfoque de orientación de lenguaje, estimulación completa en todas las áreas comunicativas del paciente.",
-    image: "/assets/estimulacion-temprana.png",
+    image: "/assets/estimulacion-temprana.webp",
     reverse: true,
   },
   {
     title: "Psicología Infantil",
     description: "Consejería en psicologíca infantil con evaluación de temas de desarrollo de conducta infantil.",
-    image: "/assets/estimulacion-temprana.png",
+    image: "/assets/estimulacion-temprana.webp",
     reverse: false,
   },
   {
     title: "Terapia Infantil",
     description: "Acompañamiento integrado en avances psicológicos y cognitivos con niños para un mejor crecimiento.",
-    image: "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?q=80&w=800&auto=format&fit=crop",
+    image: "/assets/estimulacion-temprana.webp",
     reverse: true,
   },
 ]
